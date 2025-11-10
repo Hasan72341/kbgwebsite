@@ -75,9 +75,10 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     let constellationLineGeometry = null;
     let constellationLineMaterial = null;
     let animationFrameId = 0;
-    let morphTween = null;
-    let scrollTween = null;
+    let scrollTriggerInstance = null;
     let arrivedOrbit = false;
+    let warpTarget = 0;
+    let morphTarget = 0;
 
     const virusVertex = `
       precision highp float;
@@ -346,115 +347,72 @@ const DNAVisualizer = ({ variant = "hero" }) => {
       scene.add(constellationsLine);
     }
 
-    let lastScroll = 0;
-    let warpAmount = 0;
-
-    const updateMorphUniform = () => {
-      virusMaterial.uniforms.uMorph.value = morphMixer.value;
-    };
-
     const scrollerElement = document.querySelector("[data-lenis-container]");
     const scrollTarget = scrollerElement || window;
 
-    scrollTween = gsap.to({}, {
-      scrollTrigger: {
-        trigger: ".hero-block",
-        scroller: scrollTarget,
-        start: "top top",
-        end: "bottom+=4000 top",
-        scrub: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const scrollPosition = self.scroll();
-          const scrollDelta = Math.abs(scrollPosition - lastScroll);
-          lastScroll = scrollPosition;
+    scrollTriggerInstance = ScrollTrigger.create({
+      trigger: ".hero-block",
+      scroller: scrollTarget,
+      start: "top top",
+      end: "bottom+=4000 top",
+      scrub: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+        morphTarget = computeMorphFactor(p);
+        warpTarget = THREE.MathUtils.clamp(Math.abs(self.getVelocity()) / 600, 0, 1);
 
-          warpAmount = THREE.MathUtils.clamp(scrollDelta * 0.008, 0, 1);
-          virusMaterial.uniforms.uWarp.value = gsap.utils.interpolate(
-            virusMaterial.uniforms.uWarp.value,
-            warpAmount,
-            0.2
+        const depth = 14 - p * 70;
+        const lateral = Math.sin(p * Math.PI * 2) * 20;
+        const vertical = Math.sin(p * Math.PI) * 7 - 2;
+
+        camera.position.set(lateral, vertical, depth);
+        camera.rotation.y = Math.sin(p * Math.PI) * 0.6;
+        camera.rotation.x = Math.sin(p * Math.PI * 2) * 0.3;
+        camera.lookAt(0, 0, 0);
+
+        if (virusMesh) {
+          virusMesh.rotation.y += 0.0008 + morphMixer.value * 0.0015;
+          virusMesh.rotation.x = Math.sin(p * Math.PI * 0.5) * 0.2 + morphMixer.value * 0.22;
+        }
+
+        if (constellationLineMaterial) {
+          constellationLineMaterial.opacity = gsap.utils.interpolate(
+            constellationLineMaterial.opacity,
+            Math.min(0.6, Math.pow(morphMixer.value, 1.2) * 0.9),
+            0.1
           );
+        }
 
-          const depth = 14 - p * 70;
-          const lateral = Math.sin(p * Math.PI * 2) * 20;
-          const vertical = Math.sin(p * Math.PI) * 7 - 2;
-
-          camera.position.set(lateral, vertical, depth);
-          camera.rotation.y = Math.sin(p * Math.PI) * 0.6;
-          camera.rotation.x = Math.sin(p * Math.PI * 2) * 0.3;
-          camera.lookAt(0, 0, 0);
-
-          const morphTarget = computeMorphFactor(p);
-          if (Math.abs(morphTarget - morphMixer.value) > 0.015) {
-            morphTween?.kill();
-            morphTween = gsap.to(morphMixer, {
-              value: morphTarget,
-              duration: 1.45,
-              ease: "power2.out",
-              overwrite: "auto",
-              onUpdate: updateMorphUniform,
-            });
-          } else {
-            updateMorphUniform();
-          }
-
-          if (virusMesh) {
-            virusMesh.rotation.y += 0.0008 + morphMixer.value * 0.0015;
-            virusMesh.rotation.x = Math.sin(p * Math.PI * 0.5) * 0.2 + morphMixer.value * 0.22;
-            virusMesh.rotation.z = gsap.utils.interpolate(
-              virusMesh.rotation.z,
-              morphMixer.value * 0.85,
-              0.1
-            );
-          }
-
-          if (constellationsLine && virusMesh) {
-            constellationsLine.rotation.copy(virusMesh.rotation);
-          }
-
-          if (constellationLineMaterial) {
-            constellationLineMaterial.opacity = gsap.utils.interpolate(
-              constellationLineMaterial.opacity,
-              Math.min(0.3, Math.pow(morphMixer.value, 1.2) * 0.9),
-              0.12
-            );
-          }
-
-          if (p >= 0.99 && !arrivedOrbit) {
-            arrivedOrbit = true;
-            gsap.to(camera.position, {
-              duration: 6,
-              x: 8,
-              y: 2,
-              z: -2,
-              ease: "power2.out",
-            });
-            gsap.to(camera.rotation, {
-              duration: 6,
-              y: Math.PI / 3,
-              x: 0.2,
-              ease: "power1.out",
-            });
-          }
-        },
+        if (p >= 0.99 && !arrivedOrbit) {
+          arrivedOrbit = true;
+          gsap.to(camera.position, {
+            duration: 6,
+            x: 8,
+            y: 2,
+            z: -2,
+            ease: "power2.out",
+          });
+          gsap.to(camera.rotation, {
+            duration: 6,
+            y: Math.PI / 3,
+            x: 0.2,
+            ease: "power1.out",
+          });
+        }
       },
     });
 
-    scrollTween.scrollTrigger?.refresh();
+    scrollTriggerInstance.refresh();
 
     const tick = () => {
       const t = clock.getElapsedTime();
       virusMaterial.uniforms.uTime.value = t;
-      virusMaterial.uniforms.uMorph.value = gsap.utils.interpolate(
-        virusMaterial.uniforms.uMorph.value,
-        morphMixer.value,
-        0.08
-      );
+      morphMixer.value = gsap.utils.interpolate(morphMixer.value, morphTarget, 0.08);
+      virusMaterial.uniforms.uMorph.value = morphMixer.value;
       virusMaterial.uniforms.uWarp.value = gsap.utils.interpolate(
         virusMaterial.uniforms.uWarp.value,
-        warpAmount,
-        0.06
+        warpTarget,
+        0.1
       );
       if (virusMesh) {
         virusMesh.rotation.z = gsap.utils.interpolate(
@@ -479,9 +437,7 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     tick();
 
     const cleanup = () => {
-      scrollTween?.scrollTrigger?.kill();
-      scrollTween?.kill();
-      morphTween?.kill();
+      scrollTriggerInstance?.kill();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", updateRendererSize);
       if (constellationsLine) {
