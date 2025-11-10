@@ -1,0 +1,50 @@
+{
+  "title": "About KBG",
+  "mission": "To empower students at IIT Mandi with skills at the intersection of biology and AI.",
+  "history": "Founded as a student initiative to bring together biology and computation enthusiasts.",
+  "aboutLong": "KBG (Computational Biology Group) started as a small study circle and rapidly grew into a campus-wide community. Over the years we have hosted intensive hands-on workshops, mentored multi-disciplinary student projects, and collaborated with faculty and industry partners to expose students to cutting-edge research at the intersection of biology, data science and machine learning. Our events emphasize reproducible research, open-source tools, and responsible AI practices in life sciences.",
+  "features": [
+    {
+      "title": "Workshops",
+      "description": "Multi-day, hands-on workshops that cover topics such as molecular modeling, bioinformatics pipelines, ML for sequence analysis, and single-cell analysis. Sessions include lectures, guided labs and capstone mini-projects."
+    },
+    {
+      "title": "Projects",
+      "description": "Student-led projects in collaboration with labs and startups. These projects span data visualization, algorithm development, model interpretability in biology, and building reproducible analysis pipelines."
+    },
+    {
+      "title": "Speaker Sessions",
+      "description": "Invited talks by academic and industry experts who share recent advances, practical workflows, and career advice for computational biology."
+    },
+    {
+      "title": "Community Meetups",
+      "description": "Regular meetups for demos, lightning talks, collaboration matches and social events to grow the community and cross-pollinate ideas."
+    }
+  ],
+  "timeline": [
+    { "year": 2021, "event": "Founding cohort; first workshop series" },
+    { "year": 2022, "event": "Hosted campus hackathon on biological datasets" },
+    { "year": 2023, "event": "Launched mentorship program and partnered with research labs" },
+    { "year": 2024, "event": "Expanded partnerships and published workshop materials online" }
+  ],
+  "whatWeDo": [
+    "Workshops",
+    "Projects",
+    "Speaker sessions",
+    "Community meetups",
+    "Mentorship",
+    "Open-source tool development",
+    "Collaboration with research labs",
+    "Annual hackathons"
+  ],
+  "contact": {
+    "email": "hello@kbg.ai",
+    "phone": "+91 98765 43210",
+    "location": "A6 Innovation Lab, IIT Mandi, Himachal Pradesh",
+    "socials": [
+      { "label": "Instagram", "handle": "@kbg.bio", "href": "https://instagram.com/kbg.bio" },
+      { "label": "LinkedIn", "handle": "@kbg-club", "href": "https://linkedin.com/company/kbg-club" },
+      { "label": "GitHub", "handle": "@kbg-lab", "href": "https://github.com/kbg-lab" }
+    ]
+  }
+}

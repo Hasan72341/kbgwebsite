@@ -1,0 +1,45 @@
+.
+├── .gitignore
+├── README.md
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── public
+│   └── vite.svg
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── Components
+│   │   ├── NavBar.css
+│   │   └── NavBar.jsx
+│   ├── CustomHooks
+│   │   ├── useDocumentTitle.jsx
+│   │   └── useToggle.jsx
+│   ├── Pages
+│   │   ├── About
+│   │   │   ├── About.css
+│   │   │   └── About.jsx
+│   │   ├── Events
+│   │   │   ├── Events.css
+│   │   │   └── Events.jsx
+│   │   ├── Home
+│   │   │   ├── Home.css
+│   │   │   └── Home.jsx
+│   │   ├── NotFound
+│   │   │   ├── NotFound.css
+│   │   │   └── NotFound.jsx
+│   │   ├── Projects
+│   │   │   ├── Projects.css
+│   │   │   └── Projects.jsx
+│   │   └── Team
+│   │       ├── Team.css
+│   │       └── Team.jsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   └── main.jsx
+├── stt.txt
+└── vite.config.js
+
+13 directories, 30 files

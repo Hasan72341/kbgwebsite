@@ -1,0 +1,94 @@
+/* Projects 3D wrapper & overlay */
+.projects-3d-section {
+  position: relative;
+  width: 100%;
+  height: auto;           /* controlled by inline style from component */
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, #05060a 0%, #000 60%);
+  color: #e8faff;
+}
+
+/* top-left intro overlay */
+.projects-3d-intro {
+  position: fixed;
+  left: 40px;
+  top: 36px;
+  z-index: 40;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.projects-3d-intro h1 {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 28px;
+  letter-spacing: 0.6px;
+  color: #9fefff;
+  text-shadow: 0 6px 30px rgba(0, 255, 255, 0.06);
+}
+.projects-3d-intro .intro-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #9ac9d9aa;
+  pointer-events: none;
+}
+
+/* Canvas styling: fill viewport when pinned */
+.projects-3d-canvas {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  z-index: 20;
+}
+
+/* Panel card HTML styling */
+.panel-card {
+  background: linear-gradient(180deg, rgba(6, 12, 16, 0.88), rgba(8, 10, 12, 0.82));
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  max-width: 360px;
+  color: #e8faff;
+}
+.panel-title {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #9ef0ff;
+  letter-spacing: 0.2px;
+}
+.panel-summary {
+  margin: 6px 0 8px 0;
+  font-size: 0.82rem;
+  color: #bcdfe6;
+}
+.panel-tech {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.panel-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 4px 6px;
+  border-radius: 8px;
+  color: #a7f6ff;
+  background: rgba(0, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 255, 0.06);
+}
+
+/* small responsive adjustments */
+@media (max-width: 900px) {
+  .projects-3d-intro {
+    left: 18px;
+    top: 12px;
+  }
+  .panel-card {
+    max-width: 280px;
+    padding: 10px 12px;
+  }
+  .panel-title { font-size: 1rem; }
+}

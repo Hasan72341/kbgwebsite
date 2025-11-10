@@ -1,0 +1,85 @@
+{
+  "title": "Events",
+  "upcoming": [
+    {
+      "title": "Intro to Bioinformatics",
+      "date": "2025-12-01",
+      "description": "A beginner-friendly workshop covering basic tools and pipelines.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "AI in Healthcare Hackathon",
+      "date": "2026-01-10",
+      "description": "A team-based hackathon focusing on disease prediction and medical image analysis.",
+      "image": "/src/assets/posters/dummy.jpg"
+    }
+  ],
+  "past": [
+    {
+      "title": "ML for Genomics",
+      "date": "2025-06-15",
+      "description": "Hands-on session building models for sequence data.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Bio × AI Symposium",
+      "date": "2025-04-05",
+      "description": "Invited talks from professors and researchers in AI-driven biology.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Protein Folding Challenge",
+      "date": "2025-02-20",
+      "description": "Competition to predict protein structures using ML models.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Data Visualization in Biology",
+      "date": "2024-11-30",
+      "description": "Workshop on D3.js and Python plotting tools for biological data.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Intro to Neural Networks",
+      "date": "2024-09-18",
+      "description": "Exploring CNNs and RNNs in biomedical applications.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Hardware for Biosensing",
+      "date": "2024-07-10",
+      "description": "Live demo of Arduino and ESP32-based biosensing hardware prototypes.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "AI in Drug Discovery",
+      "date": "2024-05-20",
+      "description": "Exploration of molecular docking and ML in drug design.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Introduction to Python for Biology",
+      "date": "2024-03-12",
+      "description": "Hands-on coding session introducing biologists to Python and Biopython.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "KBG Recruitment Drive",
+      "date": "2024-02-01",
+      "description": "Orientation and selection event for new members of the Bio × AI Club.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "BioHack 2023",
+      "date": "2023-11-22",
+      "description": "The club’s first hackathon combining AI and biological problem-solving.",
+      "image": "/src/assets/posters/dummy.jpg"
+    },
+    {
+      "title": "Guest Lecture: AI in Neuroscience",
+      "date": "2023-09-05",
+      "description": "Talk by a visiting professor on how deep learning models decode brain signals.",
+      "image": "/src/assets/posters/dummy.jpg"
+    }
+  ]
+}

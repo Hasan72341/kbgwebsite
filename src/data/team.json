@@ -1,0 +1,277 @@
+{
+  "title": "",
+  "members": [
+    {
+      "name": "Alex Sharma",
+      "role": "President",
+      "bio": "Second-year CS student working on ML for genomics.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/alexsharma",
+        "linkedin": "https://linkedin.com/in/alexsharma"
+      }
+    },
+    {
+      "name": "Priya Verma",
+      "role": "Vice President",
+      "bio": "Interested in computational biology and data visualization.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/priyaverma",
+        "twitter": "https://twitter.com/priyaverma"
+      }
+    },
+    {
+      "name": "Rohit Nair",
+      "role": "Technical Head",
+      "bio": "Exploring deep learning models for protein folding.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/rohitnair"
+      }
+    },
+    {
+      "name": "Sana Khan",
+      "role": "Research Coordinator",
+      "bio": "Bridging biology and AI through data-driven research.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/sanakhan"
+      }
+    },
+    {
+      "name": "Arjun Mehta",
+      "role": "AI Engineer",
+      "bio": "Focuses on NLP models for biomedical data.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/arjunmehta"
+      }
+    },
+    {
+      "name": "Neha Gupta",
+      "role": "Project Lead",
+      "bio": "Interested in genomics and predictive modeling.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/nehagupta"
+      }
+    },
+    {
+      "name": "Ishaan Kumar",
+      "role": "Design Head",
+      "bio": "Designs intuitive visualizations for biological datasets.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/ishaankumar"
+      }
+    },
+    {
+      "name": "Ananya Patel",
+      "role": "Outreach Coordinator",
+      "bio": "Manages collaborations and public events for KBG.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/ananyapatel"
+      }
+    },
+    {
+      "name": "Karan Singh",
+      "role": "ML Researcher",
+      "bio": "Developing models for bio-signal analysis.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/karansingh"
+      }
+    },
+    {
+      "name": "Aisha Rahman",
+      "role": "Content Strategist",
+      "bio": "Writes about AI breakthroughs in biology and medicine.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "twitter": "https://twitter.com/aisharahman"
+      }
+    },
+    {
+      "name": "Vikram Joshi",
+      "role": "Backend Developer",
+      "bio": "Develops APIs for AI-based biology tools using FastAPI.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/vikramjoshi"
+      }
+    },
+    {
+      "name": "Riya Das",
+      "role": "Bioinformatics Analyst",
+      "bio": "Exploring genetic datasets with Python and R.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/riyadas"
+      }
+    },
+    {
+      "name": "Mohit Bansal",
+      "role": "AI Developer",
+      "bio": "Working on deep neural networks for protein interaction.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/mohitbansal"
+      }
+    },
+    {
+      "name": "Tanya Kapoor",
+      "role": "Media Head",
+      "bio": "Creates media and content for KBG outreach.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "twitter": "https://twitter.com/tanyakapoor"
+      }
+    },
+    {
+      "name": "Harsh Thakur",
+      "role": "Full Stack Developer",
+      "bio": "Builds web dashboards for biological AI models.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/harshthakur"
+      }
+    },
+    {
+      "name": "Meera Iyer",
+      "role": "Biotech Liaison",
+      "bio": "Coordinates between biology labs and AI teams.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/meeraiyer"
+      }
+    },
+    {
+      "name": "Rohan Gupta",
+      "role": "Software Engineer",
+      "bio": "Developing simulation tools for genetic networks.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/rohangupta"
+      }
+    },
+    {
+      "name": "Fatima Noor",
+      "role": "Public Relations Lead",
+      "bio": "Manages club communication and member engagement.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/fatimanoor"
+      }
+    },
+    {
+      "name": "Aditya Roy",
+      "role": "Research Fellow",
+      "bio": "Studying AI-driven models for cancer detection.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/adityaroy"
+      }
+    },
+    {
+      "name": "Simran Kaur",
+      "role": "AI Content Creator",
+      "bio": "Simplifies complex bioinformatics concepts for outreach.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "twitter": "https://twitter.com/simrankaur"
+      }
+    },
+    {
+      "name": "Dhruv Jain",
+      "role": "Frontend Developer",
+      "bio": "Creates clean and dynamic interfaces for research tools.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/dhruvjain"
+      }
+    },
+    {
+      "name": "Maya Sinha",
+      "role": "Event Manager",
+      "bio": "Organizes workshops and hackathons for KBG.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/mayasinha"
+      }
+    },
+    {
+      "name": "Siddharth Rao",
+      "role": "Data Scientist",
+      "bio": "Works on biological data preprocessing and visualization.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/siddharthrao"
+      }
+    },
+    {
+      "name": "Nikita Das",
+      "role": "Web Developer",
+      "bio": "Develops websites and dashboards for KBG.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/nikitadas"
+      }
+    },
+    {
+      "name": "Yusuf Ahmed",
+      "role": "Machine Learning Intern",
+      "bio": "Experimenting with CNNs for genome sequence analysis.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/yusufahmed"
+      }
+    },
+    {
+      "name": "Kavya Menon",
+      "role": "Community Manager",
+      "bio": "Handles onboarding and internal communications.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/kavyamenon"
+      }
+    },
+    {
+      "name": "Rahul Yadav",
+      "role": "Operations Lead",
+      "bio": "Ensures smooth functioning of KBG’s activities and logistics.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/rahulyadav"
+      }
+    },
+    {
+      "name": "Sneha Mukherjee",
+      "role": "Data Engineer",
+      "bio": "Prepares and pipelines biological data for model training.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/snehamukherjee"
+      }
+    },
+    {
+      "name": "Tushar Vaidya",
+      "role": "AI Systems Developer",
+      "bio": "Optimizing neural architectures for biological insights.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "github": "https://github.com/tusharvaidya"
+      }
+    },
+    {
+      "name": "Ritika Sharma",
+      "role": "Club Coordinator",
+      "bio": "Coordinates between technical and design teams of KBG.",
+      "image": "/src/assets/react.svg",
+      "socials": {
+        "linkedin": "https://linkedin.com/in/ritikasharma"
+      }
+    }
+  ]
+}

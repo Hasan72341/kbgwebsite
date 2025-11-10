@@ -1,0 +1,333 @@
+/* ----------------------------------------------------
+   🌌 DNAVisualizer Background Layer
+---------------------------------------------------- */
+#dna-global-layer {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+
+/* ----------------------------------------------------
+   🌀 Lenis Reset
+---------------------------------------------------- */
+html.lenis,
+html.lenis body {
+	height: auto;
+	overflow: hidden;
+}
+
+[data-lenis-container] {
+	will-change: transform;
+	contain: layout paint;
+}
+
+/* ----------------------------------------------------
+   🏠 Page Container
+---------------------------------------------------- */
+.home-page {
+	position: relative;
+	z-index: 2;
+	min-height: 100vh;
+	background: transparent;
+	overflow: hidden;
+}
+
+.home-content {
+	position: relative;
+	z-index: 2;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 6rem 2rem 8rem;
+	display: flex;
+	flex-direction: column;
+	gap: 6rem;
+}
+
+/* ----------------------------------------------------
+   🌫️ Global Glass Variables
+---------------------------------------------------- */
+:root {
+	--glass-bg: rgba(15, 18, 35, 0.45);
+	--glass-border: rgba(200, 210, 255, 0.25);
+	--glass-blur: 28px;
+	--glass-saturate: 170%;
+	--glass-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+	--glass-highlight: linear-gradient(120deg, rgba(130, 92, 255, 0.15), rgba(43, 18, 87, 0.08));
+}
+
+/* ----------------------------------------------------
+   🧊 Global Glass Base Class
+---------------------------------------------------- */
+.glassify {
+	background: var(--glass-bg);
+	border: 1px solid var(--glass-border);
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	box-shadow: var(--glass-shadow);
+	border-radius: 28px;
+	position: relative;
+	overflow: hidden;
+	color: #f8fafc;
+}
+
+.glassify::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--glass-highlight),
+		radial-gradient(circle at 15% 10%, rgba(190, 160, 255, 0.18), transparent 40%);
+	mix-blend-mode: screen;
+	opacity: 0.55;
+	pointer-events: none;
+}
+
+/* ----------------------------------------------------
+   🌠 Hero Section
+---------------------------------------------------- */
+.hero-block {
+	@apply glassify;
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	align-items: center;
+	gap: 3rem;
+	padding: 4rem;
+}
+
+.hero-copy {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.hero-pill {
+	@apply glassify;
+	padding: 0.5rem 1.5rem;
+	border-radius: 999px;
+	font-size: 0.82rem;
+	text-transform: uppercase;
+	color: #c7d2fe;
+	font-weight: 500;
+	backdrop-filter: blur(16px);
+}
+
+.hero-copy h1 {
+	font-size: clamp(3rem, 3vw + 2rem, 4.5rem);
+	line-height: 1.05;
+	font-weight: 700;
+	text-shadow: 0 0 28px rgba(99, 102, 241, 0.35);
+	color: #ffffff;
+}
+
+.hero-tagline,
+.hero-description {
+	color: rgba(230, 235, 255, 0.88);
+	max-width: 34rem;
+	line-height: 1.7;
+}
+
+/* Glass CTA */
+.hero-cta {
+	@apply glassify;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.85rem 1.85rem;
+	border-radius: 999px;
+	background: linear-gradient(135deg, #a855f7, #6366f1);
+	color: #0f172a;
+	font-weight: 600;
+	text-decoration: none;
+	box-shadow: 0 12px 32px rgba(99, 102, 241, 0.45);
+	transition: all 0.25s ease;
+}
+
+.hero-cta:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 18px 40px rgba(99, 102, 241, 0.6);
+}
+
+/* ----------------------------------------------------
+   📊 Hero Metrics
+---------------------------------------------------- */
+.hero-metrics {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1.75rem;
+}
+
+.hero-metric {
+	@apply glassify;
+	padding: 1.85rem;
+	text-align: left;
+}
+
+.hero-metric h3 {
+	font-size: 1.3rem;
+	color: #e0e7ff;
+	margin-bottom: 0.5rem;
+}
+
+.hero-metric p {
+	color: rgba(210, 220, 255, 0.82);
+	line-height: 1.6;
+}
+
+/* ----------------------------------------------------
+   📖 Narrative Cards
+---------------------------------------------------- */
+.narrative-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 2.5rem;
+}
+
+.narrative-card {
+	@apply glassify;
+	padding: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.narrative-card h2 {
+	font-size: 1.8rem;
+	color: #f1f5ff;
+}
+
+.narrative-card p,
+.narrative-card li {
+	color: rgba(230, 235, 255, 0.85);
+	line-height: 1.75;
+	font-size: 1rem;
+}
+
+/* ----------------------------------------------------
+   🎧 Tracks & Stories
+---------------------------------------------------- */
+.tracks-grid,
+.stories-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 2rem;
+}
+
+.track-card,
+.story-card {
+	@apply glassify;
+	padding: 2.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.4rem;
+}
+
+.track-card h3 {
+	font-size: 1.4rem;
+	color: #c7d2fe;
+}
+
+.story-card blockquote {
+	margin: 0;
+	font-size: 1.15rem;
+	line-height: 1.85;
+	color: #f1f5ff;
+	font-weight: 600;
+}
+
+/* ----------------------------------------------------
+   📬 Contact Section
+---------------------------------------------------- */
+.contact-section {
+	margin-top: 5rem;
+}
+
+.contact-card {
+	@apply glassify;
+	padding: 3rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+	gap: 3rem;
+	align-items: center;
+}
+
+.contact-copy h2 {
+	font-size: clamp(2.2rem, 4vw, 3rem);
+	color: #f8fafc;
+	margin-bottom: 1rem;
+}
+
+.contact-copy p {
+	color: rgba(230, 236, 255, 0.86);
+	line-height: 1.8;
+}
+
+.contact-email {
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: #cbd5ff;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.contact-email:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+/* Social Links */
+.contact-socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+}
+
+.contact-socials a {
+	@apply glassify;
+	padding: 0.6rem 1.25rem;
+	border-radius: 999px;
+	color: #dbeafe;
+	text-decoration: none;
+	font-size: 0.95rem;
+	transition: all 0.25s ease;
+}
+
+.contact-socials a:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(130, 140, 255, 0.4);
+}
+
+/* ----------------------------------------------------
+   📱 Responsive Fixes
+---------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .dna-visualizer-canvas {
+    filter: brightness(0.85) saturate(0.9);
+    opacity: 0.8;
+  }
+
+  .hero-block {
+    padding: 14vh 6vw 8vh;
+    text-align: center;
+  }
+
+  .hero-copy h1 {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  #dna-global-layer::after {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.55) 30%,
+      rgba(0, 0, 0, 0.25) 60%,
+      rgba(0, 0, 0, 0.1) 90%
+    );
+  }
+}

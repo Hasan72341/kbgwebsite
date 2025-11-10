@@ -1,0 +1,6 @@
+- [x] Rebuild virus geometry with morph states
+- [x] Update virus shaders for realistic + abstract morph
+- [x] Drive morph mixer via scroll progress
+- [] Remove unused DNA shader files
+- [] Delete DNA glTF asset and DRACO decoders if no longer needed
+- [x] Run npm run lint/dev to verify build

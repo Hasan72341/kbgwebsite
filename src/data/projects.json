@@ -1,0 +1,50 @@
+{
+  "title": "Projects",
+  "projects": [
+    {
+      "name": "GenomeViz",
+      "summary": "Interactive visualization for genomic regions and variant mapping.",
+      "tech": ["React", "D3.js", "Python"]
+    },
+    {
+      "name": "CellClass",
+      "summary": "ML model to classify cell types from gene expression data.",
+      "tech": ["PyTorch", "scikit-learn"]
+    },
+    {
+      "name": "BioSense",
+      "summary": "Portable biosensor that integrates with an AI model to detect glucose levels in saliva samples.",
+      "tech": ["Arduino", "TensorFlow Lite", "C++"]
+    },
+    {
+      "name": "ProteinPredict",
+      "summary": "Deep learning model for predicting protein structures from amino acid sequences.",
+      "tech": ["Python", "PyTorch", "AlphaFold API"]
+    },
+    {
+      "name": "EcoBot",
+      "summary": "Autonomous rover for environmental monitoring and bio-sample collection using onboard sensors.",
+      "tech": ["Raspberry Pi", "OpenCV", "ROS"]
+    },
+    {
+      "name": "NeuroLens",
+      "summary": "EEG-based headset that detects attention levels and visualizes brain activity.",
+      "tech": ["ESP32", "Python", "Matplotlib", "BLE"]
+    },
+    {
+      "name": "PathoAI",
+      "summary": "AI system to detect pathogens in microscopy images using convolutional neural networks.",
+      "tech": ["FastAPI", "TensorFlow", "OpenCV"]
+    },
+    {
+      "name": "MedChat",
+      "summary": "Conversational assistant trained on biomedical datasets for answering medical questions.",
+      "tech": ["LangChain", "Transformers", "React"]
+    },
+    {
+      "name": "BioLogger",
+      "summary": "Hardware-Software system that collects real-time physiological signals for analysis and visualization.",
+      "tech": ["Arduino", "Node.js", "React", "MQTT"]
+    }
+  ]
+}

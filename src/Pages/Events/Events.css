@@ -1,0 +1,288 @@
+/* === Lenis container === */
+.events-lenis {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* === Bottom padding to reach end === */
+.events-bottom-spacer {
+  height: 25vh;
+}
+
+/* === Enable full smooth scroll === */
+html.lenis,
+html.lenis body {
+  overflow: visible !important;
+  overscroll-behavior: none;
+}
+
+/* === Root section === */
+.events-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 15%, #07081a 0%, #01010a 90%);
+  color: #e8faff;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  padding: 5rem 0;
+}
+
+/* === Header === */
+.events-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.events-header h1 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, #00eaff, #b000ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+}
+.events-header p {
+  color: #9bcfe0;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* === Timeline layout === */
+.timeline-section {
+  position: relative;
+  width: 90%;
+  max-width: 1100px;
+  margin: 3.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Title --- */
+.timeline-title {
+  text-align: center;
+  margin-bottom: 2.2rem;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #00eaff;
+  text-shadow: 0 0 16px rgba(0, 255, 255, 0.4);
+}
+.timeline-section.past .timeline-title {
+  color: #b600ff;
+  text-shadow: 0 0 18px rgba(255, 0, 255, 0.45);
+}
+
+/* --- Line & Fill --- */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+.timeline-line-upcoming {
+  background: linear-gradient(180deg, #00ffff33, #0099ff11);
+}
+.timeline-line-past {
+  background: linear-gradient(180deg, #c000ff33, #ff00ff11);
+}
+.timeline-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  border-radius: inherit;
+  will-change: transform, opacity, box-shadow;
+}
+.timeline-fill-upcoming {
+  background: linear-gradient(180deg, #00ffff, #0099ff);
+}
+.timeline-fill-past {
+  background: linear-gradient(180deg, #ff00ff, #8a00ff);
+}
+
+/* --- Rows --- */
+.timeline-rows {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  padding: 1rem 0;
+}
+.timeline-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+/* --- Dots --- */
+.timeline-dot {
+  position: absolute;
+  right: 389px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.timeline-dot-upcoming {
+  background: radial-gradient(circle, #00faff, #0070ff);
+  box-shadow: 0 0 35px rgba(0, 210, 255, 0.9);
+}
+.timeline-dot-past {
+  background: radial-gradient(circle, #ff4bff, #7a00ff);
+  box-shadow: 0 0 35px rgba(255, 0, 255, 0.85);
+}
+
+/* --- Cards --- */
+.timeline-card {
+  width: 92%;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: linear-gradient(145deg, rgba(18, 25, 40, 0.95), rgba(8, 10, 20, 0.9));
+  border-radius: 16px;
+  padding: 1.4rem;
+  border: 1px solid rgba(0, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.08);
+  transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+}
+.timeline-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  background: linear-gradient(145deg, rgba(25, 35, 60, 0.98), rgba(10, 15, 25, 0.95));
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.25),
+              inset 0 0 25px rgba(255, 0, 255, 0.15);
+}
+.timeline-image {
+  width: 100px;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #000;
+}
+.timeline-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 0.6s ease;
+}
+.timeline-card:hover .timeline-image img {
+  transform: scale(1.12);
+}
+.timeline-content h3 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+}
+.timeline-content .date {
+  color: #00d9ff;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+.timeline-section.past .timeline-content .date {
+  color: #d96cff;
+}
+.timeline-content .desc {
+  color: #bcd4e0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* --- Backgrounds --- */
+.timeline-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(0, 234, 255, 0.08), transparent 40%),
+              radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.07), transparent 50%);
+  filter: blur(180px);
+  z-index: 0;
+}
+.timeline-bg-surge {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 0, 255, 0.25), transparent 70%);
+  filter: blur(140px);
+  opacity: 0;
+  z-index: 0;
+}
+
+/* === Mobile layout: cards left, line right === */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 2rem 1rem;
+  }
+  .timeline-line {
+    left: auto;
+    right: 20px;
+    transform: none;
+    width: 3px;
+  }
+  .timeline-fill {
+    right: 0;
+    left: auto;
+    transform-origin: top;
+  }
+  .timeline-rows {
+    gap: 3rem;
+  }
+  .timeline-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+  }
+  .timeline-dot {
+    position: absolute;
+    right: 5px;
+    left: auto;
+    top: 1.2rem;
+    transform: translateX(50%);
+    z-index: 6;
+    width: 16px;
+    height: 16px;
+  }
+  .timeline-card {
+    width: calc(100% - 3.5rem);
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .timeline-image {
+    width: 80px;
+    border-radius: 10px;
+  }
+  .timeline-content h3 {
+    font-size: 1.05rem;
+  }
+  .timeline-content .desc {
+    font-size: 0.9rem;
+  }
+}

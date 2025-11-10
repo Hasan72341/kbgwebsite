@@ -1,0 +1,132 @@
+/* === Futuristic Glass Navbar === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(10, 15, 25, 0.55);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+  z-index: 1000;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+  background: rgba(10, 15, 25, 0.8);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
+}
+
+/* === Left: Logo === */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.navbar-logo {
+  width: 58px;
+  height: 58px;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+}
+
+/* === Right: Links === */
+.navbar-right {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.navbar-link {
+  position: relative;
+  color: #b8c7d9;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: color 0.3s ease;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00eaff, #ff00ff);
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.navbar-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.navbar-link:hover::after {
+  width: 60%;
+}
+
+.navbar-link.active {
+  color: #00eaff;
+}
+
+.navbar-link.active::after {
+  width: 60%;
+  box-shadow: 0 0 10px #00eaff;
+}
+
+/* === Responsive === */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 1.5rem;
+    height: 70px;
+  }
+
+  .navbar-right {
+    gap: 1.2rem;
+  }
+
+  .navbar-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem 0.8rem;
+    height: auto;
+  }
+
+  .navbar-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .navbar-logo {
+    width: 50px;
+    height: 50px;
+  }
+}

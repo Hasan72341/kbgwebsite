@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "title": "KBG — Bio × AI Club",
+    "subtitle": "We prototype living systems with code, wet-lab assays, data stories, and immersive visuals.",
+    "description": "From CRISPR design studios to protein-folding sprints, we explore how machine intelligence can accelerate biology. Join us for weekly build nights, lightning talks, and collaborative research that blends molecules with models.",
+    "cta": { "label": "Join the Collective", "href": "/team" }
+  },
+  "highlights": [
+    {
+      "title": "18 active builds",
+      "text": "Genomics, synthetic biology, bio-robotics, and narrative design teams iterating every week."
+    },
+    {
+      "title": "42 workshops hosted",
+      "text": "CRISPR primers, RNA-Seq pipelines, microscopy ML, and shader art for scientific storytelling."
+    },
+    {
+      "title": "6 partner labs",
+      "text": "Joint programs with biotech startups, hospital partners, and IIT Mandi research groups."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Why Bio × AI — now",
+      "copy": "Sequencing costs are dropping, simulation fidelity is rising, and machine learning can parse complex biological signals faster than ever. KBG helps students cross the boundary between the wet lab and the GPU by pairing domain experts with creative technologists."
+    },
+    {
+      "title": "Studio-based learning",
+      "copy": "Each eight-week studio cycles through problem framing, assays, data capture, modelling, and storytelling. You will ship artifacts every sprint: lab protocols, datasets, dashboards, VR scenes, or policy briefs.",
+      "bullets": [
+        "Bench-to-browser pipelines with reproducible notebooks",
+        "Shader driven explainers for molecular processes",
+        "Ethics critiques and community feedback sessions"
+      ]
+    },
+    {
+      "title": "Shared infrastructure",
+      "copy": "Members access a shared equipment pool, cloud GPU credits, DNA synthesis support, and design systems for communicating results. You will never prototype alone."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wet Lab ↔ Data Lab",
+      "summary": "Culture cells in the morning, run differential expression models at night.",
+      "focus": [
+        "CRISPR screen design and validation",
+        "RNA-Seq preprocessing and transformer models",
+        "Lab automation with low-cost hardware"
+      ]
+    },
+    {
+      "title": "Bio-Sensing & Robotics",
+      "summary": "Build field-ready biosensors and autonomous sampling platforms.",
+      "focus": [
+        "Environmental biosignal acquisition",
+        "Edge AI deployments on ROS stacks",
+        "Actuated microfluidics for rapid testing"
+      ]
+    },
+    {
+      "title": "Narrative & Visualization",
+      "summary": "Translate complex biology into intuitive spatial stories and interfaces.",
+      "focus": [
+        "Three.js shader storytelling for molecules",
+        "Scientific illustration with generative tools",
+        "Interactive explainers for policy and outreach"
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "quote": "We prototyped a salivary biosensor in four weeks because the data team built the calibration models in parallel with wet-lab validation.",
+      "author": "Ananya Sharma",
+      "role": "Genomics Lead"
+    },
+    {
+      "quote": "Animating protein interactions with shaders helped us explain our findings to clinicians without a single slide deck.",
+      "author": "Madhav Negi",
+      "role": "Visualization Studio"
+    },
+    {
+      "quote": "KBG is where I learned to pair lab notebooks with reproducible code — our audits are now faster and our science more transparent.",
+      "author": "Priya Kapoor",
+      "role": "Wet Lab Fellow"
+    }
+  ],
+  "contact": {
+    "headline": "Let’s build something bio × AI",
+    "description": "Ping us with project ideas, collaboration requests, or to host a workshop. We’re always looking for new voices, datasets, and lab challenges to remix.",
+    "email": "hello@kbg.ai",
+    "phone": "+91 98765 43210",
+    "socials": [
+      { "label": "Instagram", "href": "https://instagram.com/kbg.bio" },
+      { "label": "LinkedIn", "href": "https://linkedin.com/company/kbg-club" },
+      { "label": "GitHub", "href": "https://github.com/kbg-lab" }
+    ]
+  }
+}
