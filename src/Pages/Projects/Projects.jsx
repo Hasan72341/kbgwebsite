@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Projects.css";
 import useDocumentTitle from "../../CustomHooks/useDocumentTitle";
-import data from "../../data/projects.json";
+import { API_ENDPOINTS, fetchData } from "../../config/api";
+import { LoadingSpinner, ErrorState } from "../../Components/Loading";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -14,8 +15,27 @@ const Projects = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
   const lenisRef = useRef(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const projectsData = await fetchData(API_ENDPOINTS.projects);
+        setData(projectsData);
+      } catch (error) {
+        console.error('Failed to load projects data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
+    if (!data) return; // Wait for data to load
+
     // === Lenis tuned for buttery & accurate scroll ===
     const lenis = new Lenis({
       duration: 1.35,        // inertia
@@ -126,7 +146,15 @@ const Projects = () => {
       ctx.revert();
       lenis.destroy();
     };
-  }, []);
+  }, [data]);
+
+  if (loading) {
+    return <LoadingSpinner variant="dna" />;
+  }
+
+  if (!data) {
+    return <ErrorState message="Failed to load projects data. Please try again later." />;
+  }
 
   return (
     <div className="projects-lenis">

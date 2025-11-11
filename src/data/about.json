@@ -21,12 +21,6 @@
       "description": "Regular meetups for demos, lightning talks, collaboration matches and social events to grow the community and cross-pollinate ideas."
     }
   ],
-  "timeline": [
-    { "year": 2021, "event": "Founding cohort; first workshop series" },
-    { "year": 2022, "event": "Hosted campus hackathon on biological datasets" },
-    { "year": 2023, "event": "Launched mentorship program and partnered with research labs" },
-    { "year": 2024, "event": "Expanded partnerships and published workshop materials online" }
-  ],
   "whatWeDo": [
     "Workshops",
     "Projects",

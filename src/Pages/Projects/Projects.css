@@ -38,8 +38,8 @@ html.lenis body {
 .projects-section {
   position: relative;
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 20%, #0b0016, #01010a);
-  color: #e8faff;
+  background: radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.1), #0a0a0f);
+  color: #e5e7eb;
   font-family: "Inter", sans-serif;
   perspective: 1000px;
   overflow-x: hidden;
@@ -55,13 +55,14 @@ html.lenis body {
 .projects-header h1 {
   font-size: 3.2rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #00eaff, #ff00ff);
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
 }
 .projects-header p {
-  color: #9fc5ce;
+  color: rgba(229, 231, 235, 0.7);
   font-size: 1.1rem;
   margin-top: 0.5rem;
 }
@@ -79,29 +80,201 @@ html.lenis body {
 /* === Card Styling === */
 .project-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(255, 0, 255, 0.08));
-  border: 1px solid rgba(0, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(168, 85, 247, 0.2);
   border-radius: 18px;
   padding: 2rem 1.5rem;
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+  backdrop-filter: blur(16px);
   transform-origin: center;
   transform: translateZ(0);
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+              box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.3s ease;
+  overflow: hidden;
 }
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.08) 0%,
+    rgba(99, 102, 241, 0.05) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
 .project-card:hover {
   transform: translateY(-12px) scale(1.04) translateZ(0);
-  box-shadow: 0 0 50px rgba(0, 255, 255, 0.4),
-              inset 0 0 40px rgba(255, 0, 255, 0.2);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.3),
+              inset 0 0 40px rgba(99, 102, 241, 0.15);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* === Card Content === */
+.project-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.project-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.project-content p {
+  color: rgba(229, 231, 235, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* === Tech Tags === */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.tech-tags span {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.15) 0%,
+    rgba(99, 102, 241, 0.1) 100%
+  );
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 20px;
+  color: rgba(229, 231, 235, 0.9);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+.tech-tags span:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.25) 0%,
+    rgba(99, 102, 241, 0.18) 100%
+  );
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
 }
 
 /* === Responsive === */
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    width: 92%;
+  }
+}
+
 @media (max-width: 768px) {
   .projects-header h1 {
     font-size: 2.4rem;
   }
+  
+  .projects-header p {
+    font-size: 1rem;
+  }
+  
   .projects-section {
     padding: 4rem 1rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 95%;
+  }
+  
+  .project-card {
+    padding: 1.75rem 1.25rem;
+  }
+  
+  .project-content h3 {
+    font-size: 1.35rem;
+  }
+  
+  .project-content p {
+    font-size: 0.9rem;
+  }
+  
+  .tech-tags {
+    padding-top: 0.75rem;
+  }
+  
+  .tech-tags span {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-header {
+    margin-bottom: 3rem;
+  }
+  
+  .projects-header h1 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  
+  .projects-header p {
+    font-size: 0.95rem;
+  }
+  
+  .projects-section {
+    padding: 3rem 0.75rem;
+  }
+  
+  .project-card {
+    padding: 1.5rem 1rem;
+    border-radius: 14px;
+  }
+  
+  .project-content {
+    gap: 0.75rem;
+  }
+  
+  .project-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .project-content p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  
+  .tech-tags {
+    gap: 0.4rem;
   }
 }

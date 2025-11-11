@@ -24,7 +24,7 @@ const computeMorphFactor = (progress) => {
   return Math.min(1, 0.8 + tail * 0.2);
 };
 
-const DNAVisualizer = ({ variant = "hero" }) => {
+const DNAVisualizer = ({ variant = "hero", scroller = null }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -79,6 +79,17 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     let arrivedOrbit = false;
     let warpTarget = 0;
     let morphTarget = 0;
+    const pointer = new THREE.Vector2();
+    const pointer3D = new THREE.Vector3();
+    const pointerFar = new THREE.Vector3(9999, 9999, 9999);
+    const pointerNormal = new THREE.Vector3();
+    const pointerPlane = new THREE.Plane();
+    const planeOrigin = new THREE.Vector3();
+    const pointerHitPoint = new THREE.Vector3();
+    pointer3D.copy(pointerFar);
+    const raycaster = new THREE.Raycaster();
+    let pointerInfluence = 0;
+    let pointerInside = false;
 
     const virusVertex = `
       precision highp float;
@@ -91,11 +102,15 @@ const DNAVisualizer = ({ variant = "hero" }) => {
       uniform float uTime;
       uniform float uWarp;
       uniform float uMorph;
+      uniform vec3 uPointer;
+      uniform float uPointerStrength;
 
       varying vec3 vColor;
       varying float vMorph;
       varying float vSpike;
       varying float vDepth;
+      varying float vLighting;
+      varying float vRim;
 
       void main() {
         vMorph = uMorph;
@@ -110,6 +125,14 @@ const DNAVisualizer = ({ variant = "hero" }) => {
         );
 
         vec3 pos = positionMix + wave * mix(2.0, 8.0, uMorph);
+
+        vec3 pointerDelta = positionMix - uPointer;
+        float pointerDist = length(pointerDelta);
+        float pointerRadius = mix(240.0, 140.0, uMorph);
+        float pointerFalloff = 1.0 - smoothstep(pointerRadius * 0.45, pointerRadius, pointerDist);
+        float pointerEffect = pow(max(pointerFalloff, 0.0), 1.5) * uPointerStrength;
+        vec3 pointerDir = pointerDist > 0.0001 ? pointerDelta / pointerDist : vec3(0.0);
+        pos += pointerDir * pointerEffect * mix(14.0, 24.0, 1.0 - uMorph * 0.5);
 
         float radial = length(positionMix) + 0.0001;
         float breathing = sin(uTime * 1.35 + radial * 0.012) * mix(2.2, 4.8, 1.0 - uMorph * 0.4);
@@ -128,11 +151,19 @@ const DNAVisualizer = ({ variant = "hero" }) => {
 
         gl_Position = projectionMatrix * mvPosition;
 
-        vec3 warm = mix(vec3(0.96, 0.35, 0.22), vec3(0.98, 0.55, 0.35), aColor.x);
-        vec3 cool = mix(vec3(0.30, 0.85, 0.95), vec3(0.78, 0.26, 1.0), aColor.y);
-        vec3 accent = mix(vec3(1.0, 0.68, 0.45), vec3(0.45, 1.0, 0.92), aColor.z);
-        vColor = mix(warm, cool, uMorph);
-        vColor = mix(vColor, accent, 0.25 + 0.35 * aColor.z);
+        vec3 blue = vec3(0.18, 0.52, 0.98);
+        vec3 pink = vec3(0.97, 0.38, 0.78);
+        vec3 cyan = vec3(0.24, 0.96, 0.90);
+        vec3 body = mix(blue, pink, clamp(aColor.x, 0.0, 1.0));
+        vec3 accent = mix(cyan, blue, clamp(aColor.y, 0.0, 1.0));
+        vec3 cap = mix(vec3(0.90, 0.55, 1.0), vec3(0.30, 0.90, 1.0), clamp(aColor.z, 0.0, 1.0));
+        vColor = mix(body, accent, 0.55);
+        vColor = mix(vColor, cap, 0.3 + 0.4 * uMorph);
+
+        vec3 normalHint = normalize(positionMix + wave * 0.2);
+        vec3 lightDir = normalize(vec3(-0.35, 0.6, 0.45));
+        vLighting = max(dot(normalHint, lightDir), 0.0);
+        vRim = pow(1.0 - max(dot(normalHint, vec3(0.0, 0.0, 1.0)), 0.0), 2.2);
       }
     `;
 
@@ -145,18 +176,26 @@ const DNAVisualizer = ({ variant = "hero" }) => {
       varying float vMorph;
       varying float vSpike;
       varying float vDepth;
+      varying float vLighting;
+      varying float vRim;
 
       void main() {
-        vec2 uv = gl_PointCoord - 0.5;
+        vec2 uv = gl_PointCoord * 2.0 - 1.0;
         float dist = length(uv);
+        if (dist > 1.0) discard;
         float angle = atan(uv.y, uv.x);
 
-        float core = exp(-dist * 6.0);
-        float membrane = smoothstep(0.45, 0.1, dist);
-        float spikePattern = pow(max(0.0, sin(angle * 14.0 + uTime * 4.0) + vSpike * 0.8), 2.0);
-        float spikeRing = smoothstep(0.38, 0.0, dist) * spikePattern;
-        float proteinDots = smoothstep(0.32, 0.05, dist) * (0.4 + 0.6 * sin(angle * 5.0 - uTime * 3.0));
-        float virusShape = core * 1.5 + membrane * 0.6 + spikeRing + proteinDots * 0.4;
+        float sphere = sqrt(max(0.0, 1.0 - dist * dist));
+        float core = (1.0 - smoothstep(0.18, 0.78, dist)) * (0.65 + 0.35 * sphere);
+        float membrane = smoothstep(0.28, 0.62, dist) * (1.0 - smoothstep(0.62, 0.95, dist));
+        membrane *= 0.9 + 0.2 * sin(uTime * 1.6 + vSpike);
+
+        float angularBase = sin(angle * 5.0 + uTime * 1.8 + vSpike * 0.6);
+        float spikeLobes = smoothstep(0.45, 0.12, dist) * pow(max(0.0, sin(angle * 9.0 + uTime * 2.4 + vSpike * 1.2)), 3.0);
+        float spikeTips = smoothstep(0.35, 0.06, dist) * pow(max(0.0, sin(angle * 18.0 + uTime * 4.1)), 4.0);
+        float poreNoise = smoothstep(0.44, 0.18, dist) * (0.25 + 0.75 * sin(angle * 6.0 - uTime * 3.3 + angularBase));
+
+        float virusShape = core + membrane * 0.9 + spikeLobes * 1.1 + spikeTips * 0.9 + poreNoise * 0.3;
 
         float abstractRadial = sin(dist * 18.0 - uTime * 5.0 + vSpike) * 0.5 + 0.5;
         float abstractSpiral = sin(angle * 6.0 + uTime * 2.5) * (1.0 - dist);
@@ -164,17 +203,21 @@ const DNAVisualizer = ({ variant = "hero" }) => {
         float abstractShape = abstractRadial + abstractSpiral + abstractShell;
 
         float shape = mix(virusShape, abstractShape, vMorph);
+        float depthFade = clamp(1.0 - vDepth * 0.0006, 0.2, 1.0);
 
-        float depthFade = clamp(1.0 - vDepth * 0.0006, 0.3, 1.0);
-        vec3 highlight = mix(vec3(0.92, 0.52, 0.42), vec3(0.42, 0.86, 1.0), vMorph);
-        vec3 base = vColor * (0.65 + 0.25 * sin(uTime * 1.4 + dist * 6.0));
-        vec3 color = mix(highlight, base, 0.5 + 0.4 * shape);
-        color *= mix(0.58, 0.88, vMorph) * depthFade;
+        vec3 rimColor = mix(vec3(0.4, 0.9, 1.0), vec3(1.0, 0.55, 1.0), vMorph);
+        vec3 bodyColor = vColor * (0.45 + 0.55 * vLighting);
+        vec3 shaded = mix(bodyColor, bodyColor * (0.55 + 0.45 * sphere), 0.4);
+        vec3 finalColor = shaded + vRim * rimColor * mix(0.15, 0.4, 1.0 - vMorph);
 
-        float alpha = smoothstep(0.55, 0.1, dist) * clamp(shape * depthFade * 0.95, 0.0, 0.92);
+        float detailPulse = 0.25 + 0.6 * sin(uTime * 2.0 + dist * 12.0 + vSpike);
+        finalColor *= mix(vec3(0.4, 0.45, 0.6), vec3(0.78, 0.58, 0.92), vMorph);
+        finalColor += detailPulse * 0.08;
 
-        if (alpha < 0.025) discard;
-        gl_FragColor = vec4(color, alpha);
+        float alpha = smoothstep(0.88, 0.08, dist) * clamp(shape * depthFade, 0.0, 0.92);
+
+        if (alpha < 0.02) discard;
+        gl_FragColor = vec4(finalColor * depthFade, alpha);
       }
     `;
 
@@ -321,6 +364,8 @@ const DNAVisualizer = ({ variant = "hero" }) => {
         uTime: { value: 0 },
         uWarp: { value: 0 },
         uMorph: { value: 0 },
+        uPointer: { value: pointerFar.clone() },
+        uPointerStrength: { value: 0 },
       },
     });
 
@@ -347,7 +392,7 @@ const DNAVisualizer = ({ variant = "hero" }) => {
       scene.add(constellationsLine);
     }
 
-    const scrollerElement = document.querySelector("[data-lenis-container]");
+    const scrollerElement = scroller || document.querySelector("[data-lenis-container]");
     const scrollTarget = scrollerElement || window;
 
     scrollTriggerInstance = ScrollTrigger.create({
@@ -407,13 +452,43 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     const tick = () => {
       const t = clock.getElapsedTime();
       virusMaterial.uniforms.uTime.value = t;
-      morphMixer.value = gsap.utils.interpolate(morphMixer.value, morphTarget, 0.08);
+      const morphEase = pointerInfluence > 0.2 ? 0.05 : 0.08;
+      morphMixer.value = gsap.utils.interpolate(morphMixer.value, morphTarget, morphEase);
       virusMaterial.uniforms.uMorph.value = morphMixer.value;
       virusMaterial.uniforms.uWarp.value = gsap.utils.interpolate(
         virusMaterial.uniforms.uWarp.value,
         warpTarget,
         0.1
       );
+
+      if (virusMesh) {
+        let pointerHit = false;
+        if (pointerInside) {
+          pointerNormal.set(0, 0, 1).applyQuaternion(camera.quaternion);
+          pointerPlane.setFromNormalAndCoplanarPoint(pointerNormal, planeOrigin);
+          raycaster.setFromCamera(pointer, camera);
+          const hit = raycaster.ray.intersectPlane(pointerPlane, pointerHitPoint);
+          pointerHit = Boolean(hit);
+          if (pointerHit) {
+            if (pointer3D.equals(pointerFar)) {
+              pointer3D.copy(pointerHitPoint);
+            } else {
+              pointer3D.lerp(pointerHitPoint, 0.35);
+            }
+          } else {
+            pointer3D.copy(pointerFar);
+          }
+        } else {
+          pointer3D.copy(pointerFar);
+        }
+
+        pointerInfluence = pointerHit
+          ? gsap.utils.interpolate(pointerInfluence, 1.0, 0.22)
+          : gsap.utils.interpolate(pointerInfluence, 0, 0.12);
+
+        virusMaterial.uniforms.uPointer.value.copy(pointer3D);
+        virusMaterial.uniforms.uPointerStrength.value = pointerInfluence;
+      }
       if (virusMesh) {
         virusMesh.rotation.z = gsap.utils.interpolate(
           virusMesh.rotation.z,
@@ -436,10 +511,50 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     };
     tick();
 
+    const onPointerMove = (event) => {
+      if (!container) {
+        pointerInside = false;
+        return;
+      }
+      const rect = container.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        pointerInside = false;
+        return;
+      }
+
+      const { clientX, clientY } = event;
+      pointerInside =
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom;
+
+      if (pointerInside) {
+        pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -(((clientY - rect.top) / rect.height) * 2 - 1);
+      }
+    };
+
+    const onPointerLeave = () => {
+      pointerInside = false;
+      pointer.set(0, 0);
+      pointerInfluence = 0;
+      pointer3D.copy(pointerFar);
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointerdown", onPointerMove, { passive: true });
+    window.addEventListener("pointerleave", onPointerLeave);
+    window.addEventListener("blur", onPointerLeave);
+
     const cleanup = () => {
       scrollTriggerInstance?.kill();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", updateRendererSize);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerdown", onPointerMove);
+      window.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("blur", onPointerLeave);
       if (constellationsLine) {
         scene.remove(constellationsLine);
         constellationLineGeometry?.dispose();
@@ -458,7 +573,7 @@ const DNAVisualizer = ({ variant = "hero" }) => {
     };
 
     return cleanup;
-  }, [variant]);
+  }, [variant, scroller]);
 
   return (
     <div className="dna-visualizer dna-visualizer--background">

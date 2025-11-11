@@ -3,7 +3,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import data from "../../data/team.json";
+import Lenis from "@studio-freight/lenis";
+import { API_ENDPOINTS, fetchData } from "../../config/api";
+import { LoadingSpinner, ErrorState } from "../../Components/Loading";
 import "./Team.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,8 +18,90 @@ export default function Team() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const pulseRef = useRef(0);
   const surgeRef = useRef({ intensity: 0 });
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const teamData = await fetchData(API_ENDPOINTS.team);
+        setData(teamData);
+      } catch (error) {
+        console.error('Failed to load team data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+      smoothTouch: false,
+      lerp: 0.1,
+    });
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // Lenis doesn't expose `update()`; call raf with current time to sync
+    const onRefresh = () => {
+      try {
+        // requestAnimationFrame timestamps are in ms, so use performance.now()
+        lenis.raf(performance.now());
+      } catch (e) {
+        // fallback: call ScrollTrigger.update to ensure layout recalculation
+        ScrollTrigger.update();
+      }
+    };
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        // Setter: delegate to Lenis
+        if (arguments.length) {
+          // prefer lenis.scrollTo if available
+          if (typeof lenis.scrollTo === 'function') {
+            lenis.scrollTo(value);
+            return;
+          }
+          // fallback to native scroll
+          window.scrollTo(0, value);
+          return;
+        }
+
+        // Getter: try Lenis exposed value, otherwise fallback to window
+        if (typeof lenis.scroll === 'number') return lenis.scroll;
+        if (lenis?.scroll?.instance && typeof lenis.scroll.instance.scroll === 'number') {
+          return lenis.scroll.instance.scroll;
+        }
+        return window.scrollY || document.documentElement.scrollTop || 0;
+      },
+      getBoundingClientRect() {
+        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+      },
+    });
+
+    ScrollTrigger.defaults({ scroller: document.body });
+    ScrollTrigger.addEventListener("refresh", onRefresh);
+    ScrollTrigger.refresh();
+
+    return () => {
+      lenis.destroy();
+      ScrollTrigger.removeEventListener("refresh", onRefresh);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!data) return; // Wait for data to load
+
     const ctx = gsap.context(() => {
       // Heading fade-in
       gsap.from(titleRef.current, {
@@ -67,7 +151,15 @@ export default function Team() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [data]);
+
+  if (loading) {
+    return <LoadingSpinner variant="ring" />;
+  }
+
+  if (!data) {
+    return <ErrorState message="Failed to load team data. Please try again later." />;
+  }
 
   // 🌌 Starfield
   function Starfield({ count = 9000, scrollRef, surgeRef }) {

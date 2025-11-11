@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Events.css";
 import useDocumentTitle from "../../CustomHooks/useDocumentTitle";
-import data from "../../data/events.json";
+import { API_ENDPOINTS, fetchData } from "../../config/api";
+import { LoadingSpinner, ErrorState } from "../../Components/Loading";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -9,11 +10,31 @@ import Lenis from "@studio-freight/lenis";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Events() {
-  useDocumentTitle(data.title || "Events");
   const sectionRef = useRef(null);
   const lenisRef = useRef(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useDocumentTitle(data?.title || "Events");
+
+  // Fetch data from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const eventsData = await fetchData(API_ENDPOINTS.events);
+        setData(eventsData);
+      } catch (error) {
+        console.error('Failed to load events data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
+    if (!data) return; // Wait for data to load
+
     // === Lenis: tuned for ultimate smoothness ===
     const lenis = new Lenis({
       duration: 2.2,         // ultra long inertia
@@ -122,7 +143,15 @@ export default function Events() {
       lenis.destroy();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
-  }, []);
+  }, [data]);
+
+  if (loading) {
+    return <LoadingSpinner variant="dna" />;
+  }
+
+  if (!data) {
+    return <ErrorState message="Failed to load events data. Please try again later." />;
+  }
 
   const renderRows = (events, type) =>
     events.map((event, i) => {

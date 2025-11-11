@@ -1,0 +1,65 @@
+{
+  "title": "Our Team",
+  "members": [
+    {
+      "name": "Bhumika Gupta",
+      "role": "Coordinator",
+      "bio": "Passionate about integrating biology with engineering, simulating life and spread what this field is capable of!",
+      "image": "https://lh3.googleusercontent.com/d/1LjHqdfHDsxz-DwV-5cQHF9C094ruoi5p",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/in/bhumika-gupta-9016542a9",
+        "github": "https://github.com/bhumii-ka"
+      }
+    },
+    {
+      "name": "Devansh Garg",
+      "role": "Co-coordinator",
+      "bio": "Deep Learning Research and Applied AI",
+      "image": "https://lh3.googleusercontent.com/d/180gDz5KJ76Oxo-Nw9TsYuB2EALTdxOCb",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/in/devansh-garg-92888a241",
+        "github": "https://github.com/ThePredictiveDev"
+      }
+    },
+    {
+      "name": "Aditya Kumar Singh",
+      "role": "Mentor",
+      "bio": "Passionate about robotics, bioengineering, and deep learning.",
+      "image": "https://lh3.googleusercontent.com/d/1JzQjoVDfjdh5-jnuEpp_eDF1W6B5Y7OD",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/in/aditya-singh-191163268/",
+        "github": "https://github.com/Aditya-Singh-031",
+        "instagram": "https://www.instagram.com/_.its.aditya/"
+      }
+    },
+    {
+      "name": "Anish Singh Chaudhary",
+      "role": "Core Team Member",
+      "bio": "Sophomore with a soft spot for math and biology. Loves spending time reading, writing, and exploring new ideas. Big F1 fan who never misses a race weekend.",
+      "image": "https://lh3.googleusercontent.com/d/1ZFoVPOlQYU795tiKiqKNeQHbP2OXngHf",
+      "socials": {
+        "instagram": "https://www.instagram.com/anish.3142"
+      }
+    },
+    {
+      "name": "Garikapati Varsha Sahithi",
+      "role": "Core Team Member",
+      "bio": "I'm a Bioengineering student at IIT Mandi, passionate about applying AI and software development to solve problems in healthcare and sustainability. I love exploring how biology, data science, and technology can come together to create impactful, real-world solutions.",
+      "image": "https://lh3.googleusercontent.com/d/1n98CS2a8PYP-dE4ot5fIIV6ru4990DB6",
+      "socials": {
+        "github": "https://github.com/Varsha-Garikapati"
+      }
+    },
+    {
+      "name": "Dharmesh Sahu",
+      "role": "Core Team Member",
+      "bio": "Somehow really into mechanical engineering, somehow",
+      "image": "https://lh3.googleusercontent.com/d/1c5_DYntO6xJcmjuPiY4RljVDtRYyCNNz",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/in/dharmesh-sahu-a32b2b316",
+        "github": "https://github.com/dhakkann",
+        "instagram": "https://instagram.com/dharme.sh"
+      }
+    }
+  ]
+}

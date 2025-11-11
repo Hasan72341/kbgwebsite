@@ -1,115 +1,528 @@
-/* Background canvas fills the section and sits behind the content */
-.about-page {
-	position: relative;
-	overflow: hidden;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 80px 24px;
-	color: #e6f0ff;
-}
-
-/* Make the section background fully transparent so the canvas shows through */
-.about-page {
-  background: transparent;
-}
-
-.about-bg-canvas {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 0;
-	pointer-events: none;
-}
-
+/* ----------------------------------------------------
+   🌌 Galaxy Background Layer
+---------------------------------------------------- */
 .about-galaxy-canvas {
-	/* canvas will be pinned to the viewport by the component; keep a fallback */
 	position: fixed;
-	top: 0;
-	left: 0;
+	inset: 0;
 	width: 100vw;
 	height: 100vh;
 	z-index: 0;
 	pointer-events: none;
+	background: transparent;
 }
 
-.about-page > * {
+/* ----------------------------------------------------
+   🏠 Page Container
+---------------------------------------------------- */
+.about-page {
+	position: relative;
+	min-height: 100vh;
+	background: transparent;
+	overflow: visible;
+	padding: 0;
+	z-index: 1;
+}
+
+.about-content {
+	position: relative;
+	z-index: 2;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 6rem 2rem 8rem;
+	display: flex;
+	flex-direction: column;
+	gap: 6rem;
+}
+
+/* Ensure all elements are visible by default - GSAP will handle animations */
+.about-page h1,
+.about-page .mission,
+.about-page .history,
+.about-page .about-description,
+.feature-card,
+.timeline-item,
+.what-we-do li,
+.about-contact-card {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* ----------------------------------------------------
+   🌫️ Glass Variables (matching Home page)
+---------------------------------------------------- */
+:root {
+	--glass-bg: rgba(15, 18, 35, 0.35);
+	--glass-border: rgba(200, 210, 255, 0.18);
+	--glass-blur: 24px;
+	--glass-saturate: 180%;
+	--glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+	--glass-highlight: linear-gradient(
+		135deg,
+		rgba(130, 92, 255, 0.1) 0%,
+		rgba(99, 102, 241, 0.05) 50%,
+		transparent 100%
+	);
+	--glass-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+/* ----------------------------------------------------
+   🧊 Glass Card Component
+---------------------------------------------------- */
+.about-page .glass-card,
+.glass-card {
+	background: var(--glass-bg) !important;
+	border: 1px solid var(--glass-border) !important;
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+	box-shadow: var(--glass-shadow), var(--glass-glow) !important;
+	border-radius: 24px !important;
+	position: relative;
+	overflow: hidden;
+	color: #f8fafc !important;
+	transition: all 0.3s ease;
+}
+
+.about-page .glass-card::before,
+.glass-card::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--glass-highlight);
+	opacity: 0.6;
+	pointer-events: none;
+	z-index: 0;
+	border-radius: 24px;
+}
+
+.about-page .glass-card::after,
+.glass-card::after {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+		circle at center,
+		rgba(190, 160, 255, 0.12) 0%,
+		rgba(99, 102, 241, 0.08) 25%,
+		transparent 50%
+	);
+	opacity: 0;
+	transition: opacity 0.4s ease;
+	pointer-events: none;
+	z-index: 0;
+	border-radius: 24px;
+}
+
+.about-page .glass-card:hover::after,
+.glass-card:hover::after {
+	opacity: 1;
+}
+
+.about-page .glass-card > *,
+.glass-card > * {
 	position: relative;
 	z-index: 1;
 }
 
-/* Ensure all child elements render with transparent backgrounds */
-.about-page * {
-	background: transparent !important;
-	box-shadow: none !important;
+/* ----------------------------------------------------
+   🌠 Hero Section
+---------------------------------------------------- */
+.about-hero {
+	text-align: center;
+	margin-top: -90px;
+	padding: 4rem 3rem !important;
+	min-height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
 }
-
-/* Keep content visible above canvas */
-.about-page > * { z-index: 1; }
 
 .about-page h1 {
-	font-size: 3rem;
-	margin: 0 0 1rem 0;
+	font-size: clamp(2.5rem, 5vw, 4rem);
+	line-height: 1.1;
+	font-weight: 700;
+	background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 0.5rem;
+	text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
 }
 
-.about-page .mission,
+.about-page .mission {
+	color: rgba(230, 235, 255, 0.95);
+	font-size: clamp(1.1rem, 2vw, 1.3rem);
+	line-height: 1.7;
+	font-weight: 500;
+	max-width: 850px;
+	margin: 0 auto;
+}
+
 .about-page .history {
+	color: rgba(210, 220, 255, 0.88);
+	font-size: clamp(1rem, 1.5vw, 1.1rem);
 	max-width: 800px;
+	margin: 0 auto;
+	line-height: 1.75;
+}
+
+.about-page .about-description {
+	color: rgba(200, 215, 255, 0.85);
+	font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+	max-width: 900px;
+	margin: 1rem auto 0;
+	line-height: 1.8;
 	text-align: center;
-	margin-bottom: 1rem;
-	opacity: 0.95;
 }
 
+/* ----------------------------------------------------
+   📖 About Long Section
+---------------------------------------------------- */
+.about-long {
+	padding: 2.5rem;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.about-long p {
+	color: rgba(230, 235, 255, 0.9);
+	line-height: 1.85;
+	font-size: clamp(1rem, 1.5vw, 1.1rem);
+	text-align: center;
+}
+
+/* ----------------------------------------------------
+   ✨ Features Section
+---------------------------------------------------- */
+.features {
+	width: 100%;
+	background: var(--glass-bg);
+	border: 1px solid var(--glass-border);
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	box-shadow: var(--glass-shadow), var(--glass-glow);
+	border-radius: 24px;
+	padding: 3rem 2.5rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.features::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--glass-highlight);
+	opacity: 0.4;
+	pointer-events: none;
+	z-index: 0;
+	border-radius: 24px;
+}
+
+.features > * {
+	position: relative;
+	z-index: 1;
+}
+
+.features h2 {
+	text-align: center;
+	font-size: clamp(2rem, 4vw, 2.8rem);
+	color: #f1f5ff;
+	margin-bottom: 3rem;
+}
+
+.features-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2rem;
+}
+
+@media (min-width: 640px) {
+	.features-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1024px) {
+	.features-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2.5rem;
+	}
+}
+
+.feature-card {
+	padding: 2.5rem !important;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background: rgba(25, 28, 45, 0.4) !important;
+	border: 1px solid rgba(200, 210, 255, 0.2) !important;
+}
+
+.feature-card h3 {
+	font-size: clamp(1.25rem, 2vw, 1.5rem);
+	color: #c7d2fe;
+	margin: 0;
+	font-weight: 600;
+}
+
+.feature-card p {
+	color: rgba(230, 235, 255, 0.85);
+	line-height: 1.75;
+	margin: 0;
+	font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+}
+
+/* ----------------------------------------------------
+    What We Do Section
+---------------------------------------------------- */
 .what-we-do {
-	margin-top: 2rem;
+	max-width: 800px;
+	margin: 0 auto;
+	width: 100%;
 }
 
-.what-we-do ul { list-style: none; padding: 0; }
-
-.about-long { max-width: 900px; text-align: center; margin: 2rem 0; }
-
-.features { width: 100%; max-width: 1100px; margin: 2.5rem 0; }
-.features h2 { text-align: center; margin-bottom: 1rem; }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
-.feature-card { background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; backdrop-filter: blur(6px); }
-.feature-card h3 { margin: 0 0 0.5rem 0; }
-
-.timeline { max-width: 800px; margin: 2rem 0; }
-.timeline ol { padding-left: 1rem; }
-.timeline-item { margin-bottom: 0.75rem; }
-
-.about-galaxy-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  background: transparent;
+.what-we-do h2 {
+	text-align: center;
+	font-size: clamp(2rem, 4vw, 2.8rem);
+	color: #f1f5ff;
+	margin-bottom: 2rem;
 }
 
-.about-page {
-  position: relative;
-  overflow: visible;
-  padding: 10rem 2rem 6rem;
-  color: #e6f0ff;
-  background: transparent;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.what-we-do ul {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
 }
 
-.about-page > * {
-  position: relative;
-  z-index: 2;
+@media (min-width: 640px) {
+	.what-we-do ul {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
 }
 
-.about-page * {
-  background: transparent !important;
+.what-we-do li {
+	padding: 1.25rem 1.75rem;
+	background: rgba(99, 102, 241, 0.08);
+	border: 1px solid rgba(200, 210, 255, 0.15);
+	border-radius: 16px;
+	color: rgba(230, 235, 255, 0.9);
+	font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	transition: all 0.3s ease;
 }
 
+.what-we-do li:hover {
+	background: rgba(99, 102, 241, 0.15);
+	border-color: rgba(200, 210, 255, 0.25);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+}
+
+/* ----------------------------------------------------
+   📬 Contact Section
+---------------------------------------------------- */
+.about-contact {
+	width: 100%;
+}
+
+.about-contact h2 {
+	text-align: center;
+	font-size: clamp(2rem, 4vw, 2.8rem);
+	color: #f1f5ff;
+	margin-bottom: 3rem;
+}
+
+.about-contact-card {
+	padding: 3rem 2rem !important;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2.5rem;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+	.about-contact-card {
+		grid-template-columns: 1.2fr 1fr;
+		gap: 3rem;
+		padding: 3rem;
+	}
+}
+
+.about-contact-details {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.about-contact-location {
+	color: rgba(230, 235, 255, 0.9);
+	font-size: clamp(1rem, 1.5vw, 1.1rem);
+	line-height: 1.6;
+	margin: 0;
+}
+
+.about-contact-links {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.about-contact-email {
+	font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+	font-weight: 600;
+	color: #cbd5ff;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.about-contact-email:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.about-contact-phone {
+	color: rgba(210, 220, 255, 0.85);
+	font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+}
+
+.about-contact-socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+}
+
+.social-link {
+	background: var(--glass-bg) !important;
+	border: 1px solid var(--glass-border) !important;
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) !important;
+	box-shadow: var(--glass-shadow) !important;
+	border-radius: 999px !important;
+	padding: 0.75rem 1.5rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.social-link span {
+	color: #dbeafe;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.social-link small {
+	color: rgba(200, 210, 255, 0.7);
+	font-size: 0.8rem;
+}
+
+.social-link:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(130, 140, 255, 0.4);
+	border-color: rgba(200, 210, 255, 0.3);
+}
+
+.social-link:hover span {
+	color: #ffffff;
+}
+
+/* ----------------------------------------------------
+   📱 Mobile Responsive
+---------------------------------------------------- */
+@media (max-width: 767px) {
+	.about-content {
+		padding: 3rem 1.25rem 5rem;
+		gap: 4rem;
+	}
+
+	.about-hero {
+		margin-top: 20px;
+		padding: 2.5rem 1.5rem !important;
+	}
+
+	.about-page h1 {
+		font-size: 2.25rem;
+	}
+
+	.features {
+		padding: 2.5rem 1.5rem;
+	}
+
+	.feature-card {
+		padding: 2rem 1.5rem !important;
+	}
+
+	.timeline ol {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.timeline-item {
+		padding: 1.75rem 1.5rem !important;
+	}
+
+	.what-we-do ul {
+		gap: 0.75rem;
+	}
+
+	.about-contact-card {
+		padding: 2.5rem 1.75rem;
+		text-align: center;
+	}
+
+	.about-contact-details {
+		align-items: center;
+	}
+
+	.about-contact-socials {
+		justify-content: center;
+	}
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+	.about-content {
+		padding: 5rem 2rem 7rem;
+		gap: 5rem;
+	}
+
+	.about-hero {
+		margin-top: 10px;
+	}
+}
+
+/* Desktop enhancements */
+@media (min-width: 1280px) {
+	.about-content {
+		max-width: 1280px;
+	}
+
+	.features-grid {
+		gap: 3rem;
+	}
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

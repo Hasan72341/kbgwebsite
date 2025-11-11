@@ -66,3 +66,6 @@ Icon?
 
 # Optional: ignore public/vite.svg if generated
 # public/vite.svg
+
+# Local Netlify folder
+.netlify

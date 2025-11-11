@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   overflow-x: hidden;
   background: #000;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #fff;
 }
 
@@ -23,113 +23,215 @@ html, body {
   pointer-events: none;
 }
 
+.team-page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 .team-content {
   position: relative;
   z-index: 2;
-  padding: 10rem 5vw;
+  padding: clamp(6rem, 12vh, 10rem) clamp(1.5rem, 5vw, 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .team-title {
-  font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
   text-align: center;
-  background: linear-gradient(90deg, #38bdf8, #a855f7, #22d3ee);
+  background: linear-gradient(135deg, #a855f7, #6366f1, #8b5cf6);
   -webkit-background-clip: text;
-  color: transparent;
-  letter-spacing: -0.03em;
-  text-shadow: 0 0 40px rgba(56, 189, 248, 0.5);
-  margin-bottom: 5rem;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: clamp(4rem, 8vh, 6rem);
+  position: relative;
+}
+
+.team-title::after {
+  content: "";
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #a855f7, #6366f1, transparent);
+  border-radius: 2px;
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+  max-width: 1200px;
   width: 100%;
   justify-items: center;
 }
 
 .member-card {
-  perspective: 1000px;
-  transition: transform 0.5s ease;
+  width: 100%;
+  max-width: 380px;
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .card-inner {
-  background: rgba(10, 20, 40, 0.5);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  border-radius: 20px;
-  padding: 2rem 1.6rem;
+  background: rgba(15, 18, 35, 0.35);
+  border: 1px solid rgba(200, 210, 255, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  border-radius: 24px;
+  padding: clamp(1.75rem, 3vw, 2.25rem) clamp(1.5rem, 2.5vw, 2rem);
   text-align: center;
-  backdrop-filter: blur(18px) saturate(160%);
-  box-shadow: 0 0 50px rgba(56, 189, 248, 0.25);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(130, 92, 255, 0.08) 0%,
+    rgba(99, 102, 241, 0.04) 50%,
+    transparent 100%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 24px;
+}
+
+.card-inner > * {
+  position: relative;
+  z-index: 1;
 }
 
 .member-card:hover .card-inner {
-  transform: rotateY(8deg) translateY(-10px) scale(1.04);
-  box-shadow: 0 0 70px rgba(56, 189, 248, 0.4);
+  transform: translateY(-8px);
+  border-color: rgba(200, 210, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
 }
 
 .avatar {
-  width: 90px;
-  height: 90px;
+  width: clamp(80px, 15vw, 100px);
+  height: clamp(80px, 15vw, 100px);
   border-radius: 50%;
-  margin-bottom: 1.2rem;
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+  margin: 0 auto 1.5rem;
+  border: 3px solid rgba(200, 210, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-card:hover .avatar {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(168, 85, 247, 0.5);
 }
 
 .role {
-  color: #38bdf8;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
 }
 
 .bio {
-  font-size: 0.95rem;
-  color: rgba(230, 245, 255, 0.9);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: rgba(230, 235, 255, 0.75);
   line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
 .links {
   display: flex;
   justify-content: center;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(200, 210, 255, 0.1);
 }
 
 .links a {
-  color: #66d9ff;
+  color: rgba(230, 235, 255, 0.7);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
 }
 
 .links a:hover {
-  color: #fff;
-  text-shadow: 0 0 12px #38bdf8;
+  color: #a855f7;
+  transform: translateY(-2px);
 }
 
 .cta-section {
-  margin-top: 8rem;
+  margin-top: clamp(6rem, 12vh, 10rem);
   text-align: center;
-  max-width: 700px;
+  max-width: 800px;
+  padding: clamp(2.5rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+  background: rgba(15, 18, 35, 0.35);
+  border: 1px solid rgba(200, 210, 255, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(130, 92, 255, 0.08) 0%,
+    rgba(99, 102, 241, 0.04) 50%,
+    transparent 100%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 32px;
+}
+
+.cta-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .cta-section h2 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  background: linear-gradient(135deg, #38bdf8, #a855f7);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
 }
 
 .cta-section p {
-  color: rgba(220, 240, 255, 0.85);
-  margin: 1.5rem 0;
-  line-height: 1.8;
+  color: rgba(230, 235, 255, 0.75);
+  margin: 1.5rem 0 2rem;
+  line-height: 1.7;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  letter-spacing: 0.01em;
 }
 
 .cta-buttons {
@@ -140,31 +242,78 @@ html, body {
 }
 
 .primary-btn, .secondary-btn {
-  padding: 0.9rem 2rem;
-  border-radius: 999px;
+  padding: clamp(0.85rem, 2vw, 1rem) clamp(1.75rem, 4vw, 2.25rem);
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  transition: 0.3s ease;
+  font-size: clamp(0.95rem, 1.5vw, 1rem);
+  transition: all 0.3s ease;
+  display: inline-block;
+  letter-spacing: 0.02em;
 }
 
 .primary-btn {
-  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-  color: #02141e;
-  box-shadow: 0 0 30px rgba(14, 165, 233, 0.35);
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+  border: 1px solid rgba(200, 210, 255, 0.3);
 }
 
 .primary-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 50px rgba(14, 165, 233, 0.55);
+  box-shadow: 0 6px 30px rgba(168, 85, 247, 0.6);
+  border-color: rgba(200, 210, 255, 0.5);
 }
 
 .secondary-btn {
-  border: 1px solid rgba(56, 189, 248, 0.6);
-  color: #cfeeff;
-  background: rgba(15, 25, 40, 0.4);
+  border: 1px solid rgba(200, 210, 255, 0.18);
+  color: rgba(230, 235, 255, 0.9);
+  background: rgba(15, 18, 35, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .secondary-btn:hover {
   transform: translateY(-3px);
-  background: rgba(25, 45, 70, 0.7);
+  background: rgba(25, 30, 50, 0.6);
+  border-color: rgba(200, 210, 255, 0.3);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .team-content {
+    padding: clamp(4rem, 10vh, 6rem) 1.5rem;
+  }
+
+  .team-title {
+    margin-bottom: clamp(3rem, 6vh, 4rem);
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .member-card {
+    max-width: 100%;
+  }
+
+  .card-inner {
+    padding: 2rem 1.5rem;
+  }
+
+  .cta-section {
+    margin-top: clamp(4rem, 8vh, 6rem);
+    padding: 2rem 1.5rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .primary-btn, .secondary-btn {
+    width: 100%;
+    max-width: 300px;
+  }
 }
