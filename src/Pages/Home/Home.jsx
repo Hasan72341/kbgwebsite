@@ -85,7 +85,7 @@ const Home = () => {
       opacity: 0,
       y: 50,
       filter: 'blur(15px)',
-      duration: 1.2,
+      duration: 0.9,
       ease: 'power3.out',
       delay: 0.3,
       clearProps: 'all',
@@ -94,7 +94,7 @@ const Home = () => {
     gsap.from('.hero-copy .hero-tagline', {
       opacity: 0,
       y: 40,
-      duration: 1,
+      duration: 0.75,
       ease: 'power3.out',
       delay: 0.5,
       clearProps: 'all',
@@ -103,7 +103,7 @@ const Home = () => {
     gsap.from('.hero-copy .hero-description', {
       opacity: 0,
       y: 40,
-      duration: 1,
+      duration: 0.75,
       ease: 'power3.out',
       delay: 0.7,
       clearProps: 'all',
@@ -112,7 +112,7 @@ const Home = () => {
     gsap.from('.hero-cta', {
       opacity: 0,
       scale: 0.9,
-      duration: 0.8,
+      duration: 0.6,
       ease: 'back.out(1.7)',
       delay: 0.9,
       clearProps: 'all',
@@ -122,8 +122,8 @@ const Home = () => {
       opacity: 0,
       y: 40,
       filter: 'blur(10px)',
-      duration: 1,
-      stagger: 0.15,
+      duration: 0.75,
+      stagger: 0.1,
       ease: 'power3.out',
       delay: 1.1,
       clearProps: 'all',
@@ -141,7 +141,7 @@ const Home = () => {
         y: 60,
         scale: 0.95,
         filter: 'blur(15px)',
-        duration: 1.2,
+        duration: 0.9,
         ease: 'power3.out',
         clearProps: 'all',
         scrollTrigger: {
@@ -156,7 +156,7 @@ const Home = () => {
         gsap.from(title, {
           opacity: 0,
           x: -30,
-          duration: 0.8,
+            duration: 0.6,
           ease: 'power2.out',
           clearProps: 'all',
           scrollTrigger: {
@@ -172,7 +172,7 @@ const Home = () => {
         gsap.from(content, {
           opacity: 0,
           y: 20,
-          duration: 0.8,
+            duration: 0.6,
           ease: 'power2.out',
           clearProps: 'all',
           scrollTrigger: {
@@ -188,8 +188,8 @@ const Home = () => {
         gsap.from(bullets, {
           opacity: 0,
           x: -20,
-          duration: 0.6,
-          stagger: 0.1,
+            duration: 0.45,
+            stagger: 0.08,
           ease: 'power2.out',
           clearProps: 'all',
           scrollTrigger: {
@@ -209,7 +209,7 @@ const Home = () => {
         opacity: 0,
         y: 50,
         filter: 'blur(12px)',
-        duration: 1.1,
+        duration: 0.8,
         ease: 'power3.out',
         clearProps: 'all',
         scrollTrigger: {
@@ -228,7 +228,7 @@ const Home = () => {
         opacity: 0,
         scale: 0.95,
         filter: 'blur(10px)',
-        duration: 1,
+        duration: 0.75,
         ease: 'power3.out',
         clearProps: 'all',
         scrollTrigger: {
@@ -245,7 +245,7 @@ const Home = () => {
       opacity: 0,
       y: 60,
       filter: 'blur(15px)',
-      duration: 1.2,
+      duration: 0.9,
       ease: 'power3.out',
       clearProps: 'all',
       scrollTrigger: {
@@ -265,7 +265,7 @@ const Home = () => {
         scroller: scrollerEl,
         start: 'top top',
         end: 'bottom top',
-        scrub: 0.7,
+        scrub: 0.5,
       },
     });
 
