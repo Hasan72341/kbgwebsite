@@ -368,21 +368,6 @@ export default function Team() {
           ))}
         </div>
 
-        <div className="cta-section">
-          <h2>Join the Collective</h2>
-          <p>
-            We’re fusing biology and AI to push innovation frontiers. Be part of
-            the evolution.
-          </p>
-          <div className="cta-buttons">
-            <a href="mailto:hello@kbg.ai" className="primary-btn">
-              Contact Us
-            </a>
-            <a href="/events" className="secondary-btn">
-              Explore Events
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );
